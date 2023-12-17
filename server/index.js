@@ -13,12 +13,11 @@ const port = 3008;
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, resp) => {
-    resp.send("soy el server");
-    resp.log(`El servidor esta corriendo en el puerto ${port}`);
+app.get("/", (req, res) => {
+    res.send("soy el server");
 });
 
-app.post("/create_preferenc", async (req, resp) => {
+app.post("/create_preference", async (req, res) => {
     try {
         const body = {
             item: [
@@ -38,12 +37,12 @@ app.post("/create_preferenc", async (req, resp) => {
         };
         const preference = new Preference(client);
         const result = await preference.create({ body });
-        resp.json({
+        res.json({
             id: result.id,
         })
     } catch (error) {
         console.log(error);
-        resp.log(`El servidor esta corriendo en el puerto ${port}`);
+        res.log(`El servidor esta corriendo en el puerto ${port}`);
     }
 });
 
